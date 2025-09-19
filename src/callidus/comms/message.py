@@ -75,9 +75,12 @@ class CallidusMessage():
         data (Any): The data to be contained in the message
         sender (str); The message sender
         receiver (str); The message receiver
-        session_id (str): Session ID
+        message_type (str): Message Type (From imported message)
+            This is preserved in packet
         timestamp (int): Timestamp of when the message was created
+            This is preserved in packet
         ttl (int): Number of seconds for the message to be valid (0 = always)
+            This is preserved in packet
         message_id (str) [ReadOnly]: Message ID (From imported message)
             This is not preserved in packet
         session_id (str) [ReadOnly]: Session ID (From imported message)
@@ -125,6 +128,7 @@ class CallidusMessage():
         self.data = data
         self.sender = sender
         self.receiver = receiver
+        self.message_type = ""
         self.timestamp = timestamp or create_timestamp()
         self.ttl = ttl
 
@@ -141,6 +145,15 @@ class CallidusMessage():
     def session_id(self) -> str:
         ''' The session ID '''
         return self.__session_id
+
+
+    #
+    # message_id
+    #
+    @property
+    def message_id(self) -> str:
+        ''' The session ID '''
+        return self.__message_id
 
 
     #
@@ -192,6 +205,7 @@ class CallidusMessage():
             "properties": {
                 "sender": self.sender,
                 "receiver": self.receiver,
+                "message_type": self.message_type,
                 "session_id": self.__session_id,
                 "timestamp": self.timestamp,
                 "ttl": self.ttl,
@@ -225,6 +239,7 @@ class CallidusMessage():
         
         if "sender" in _props: self.sender = _props['sender']
         if "receiver" in _props: self.receiver = _props['receiver']
+        if "message_type" in _props: self.message_type = _props['message_type']
         if "message_id" in _props: self.__message_id = _props['message_id']
         if "session_id" in _props: self.__session_id = _props['session_id']
         if "timestamp" in _props: self.timestamp = _props['timestamp']
