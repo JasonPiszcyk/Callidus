@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "callidus"
+version = "1.0.0"
+authors = [
+  { name="Jason Piszcyk", email="Jason.Piszcyk@gmail.com" },
+]
+description = "Callidus interface"
+readme = "README.md"
+requires-python = ">=3.12"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+  "requests",
+  "urllib3",
+  "pytest",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/JasonPiszcyk/Callidus"
+"Bug Tracker" = "https://github.com/JasonPiszcyk/Callidus/issues"
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "src"
+]
