@@ -3,8 +3,8 @@
 
 
 __Version 1.0.2__
-Released: 2025-09-XX
-* 
+Released: 2025-09-21
+* New - Add request and response message classes
 
 
 __Version 1.0.1__
