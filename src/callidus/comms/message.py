@@ -20,24 +20,16 @@ suitability for any particular purpose.
 #
 ###########################################################################
 # Shared variables, constants, etc
-# from redis_config import RedisConfig
 
 # System Modules
-# import uuid
-# import pika
-from appcore.conversion import ENCODE_METHOD,  DataType
+from appcore.conversion import ENCODE_METHOD, DataType
 from appcore.conversion import to_json, from_json, get_value_type
 from appcore.util.functions import timestamp as create_timestamp
-# from appcore.conversion import to_base64, from_base64
-# from appcore.multitasking.message_frame import MessageFrame as TQ_MessageFrame
 
 # Local app modules
 
 # Imports for python variable type hints
 from typing import Any
-# from appcore.datastore.system import DataStoreSystem
-# from appcore.datastore.redis import DataStoreRedis
-# from appcore.connector.rmq import RMQInterface
 
 
 ###########################################################################
@@ -49,11 +41,9 @@ from typing import Any
 # Types
 #
 
-
 #
 # Constants
 #
-
 
 #
 # Global Variables
@@ -83,7 +73,7 @@ class CallidusMessage():
             This is preserved in packet
         message_id (str) [ReadOnly]: Message ID (From imported message)
             This is not preserved in packet
-        session_id (str) [ReadOnly]: Session ID (From imported message)
+        session_id (str): Session ID (From imported message)
             This is preserved in packet
         data_bytes (bytes): The data converted to JSON and encoded in byte
             format when possible (if not JSON compatible will be empty)
@@ -100,6 +90,7 @@ class CallidusMessage():
             data: Any = None,
             sender: str = "",
             receiver: str = "",
+            session_id: str = "",
             timestamp: int = 0,
             ttl: int = 0,
     ):
@@ -110,6 +101,8 @@ class CallidusMessage():
             data (Any): The data to be contained in the message
             sender (str); The message sender
             receiver (str); The message receiver
+            session_id (str): Session ID (From imported message)
+                This is preserved in packet
             timestamp (int): Timetamp of when the message was created
             ttl (int): Number of seconds for the message to be valid
                 (0 = always)
@@ -122,12 +115,12 @@ class CallidusMessage():
         '''
         # Private Attributes
         self.__message_id = ""
-        self.__session_id = ""
 
         # Attributes
         self.data = data
         self.sender = sender
         self.receiver = receiver
+        self.session_id = session_id
         self.message_type = ""
         self.timestamp = timestamp or create_timestamp()
         self.ttl = ttl
@@ -138,15 +131,6 @@ class CallidusMessage():
     # Properties
     #
     ###########################################################################
-    #
-    # session_id
-    #
-    @property
-    def session_id(self) -> str:
-        ''' The session ID '''
-        return self.__session_id
-
-
     #
     # message_id
     #
@@ -206,7 +190,7 @@ class CallidusMessage():
                 "sender": self.sender,
                 "receiver": self.receiver,
                 "message_type": self.message_type,
-                "session_id": self.__session_id,
+                "session_id": self.session_id,
                 "timestamp": self.timestamp,
                 "ttl": self.ttl,
             }
@@ -241,7 +225,7 @@ class CallidusMessage():
         if "receiver" in _props: self.receiver = _props['receiver']
         if "message_type" in _props: self.message_type = _props['message_type']
         if "message_id" in _props: self.__message_id = _props['message_id']
-        if "session_id" in _props: self.__session_id = _props['session_id']
+        if "session_id" in _props: self.session_id = _props['session_id']
         if "timestamp" in _props: self.timestamp = _props['timestamp']
         if "ttl" in _props: self.ttl = _props['ttl']
 
