@@ -19,6 +19,8 @@ suitability for any particular purpose.
 # Imports
 #
 ###########################################################################
+from __future__ import annotations
+
 # Shared variables, constants, etc
 
 # System Modules

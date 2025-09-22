@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "callidus"
-version = "1.0.2"
+version = "1.0.3"
 authors = [
   { name="Jason Piszcyk", email="Jason.Piszcyk@gmail.com" },
 ]
 description = "Callidus interface"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.8"
 classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",

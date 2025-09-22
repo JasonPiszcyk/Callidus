@@ -1,6 +1,10 @@
 # Callidus
 ## Release Notes
 
+__Version 1.0.3__
+Released: 2025-09-22
+* Change - Set compatability with Python 3.8
+
 
 __Version 1.0.2__
 Released: 2025-09-21
