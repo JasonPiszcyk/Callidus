@@ -1,6 +1,11 @@
 # Callidus
 ## Release Notes
 
+__Version 1.0.4__
+Released: 2025-09-23
+* New - Callidus message now has RMQ properties
+
+
 __Version 1.0.3__
 Released: 2025-09-22
 * Change - Set compatability with Python 3.8
