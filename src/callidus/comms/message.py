@@ -24,6 +24,7 @@ from __future__ import annotations
 # Shared variables, constants, etc
 
 # System Modules
+import pika
 from appcore.conversion import ENCODE_METHOD, DataType
 from appcore.conversion import to_json, from_json, get_value_type
 from appcore.util.functions import timestamp as create_timestamp
@@ -230,6 +231,47 @@ class CallidusMessage():
         if "session_id" in _props: self.session_id = _props['session_id']
         if "timestamp" in _props: self.timestamp = _props['timestamp']
         if "ttl" in _props: self.ttl = _props['ttl']
+
+
+    #
+    # rmq_properties
+    #
+    @property
+    def rmq_properties(self) -> pika.BasicProperties:
+        ''' The properties in RMQ format '''
+        _headers = {
+            "sender": self.sender,
+            "receiver": self.receiver,
+            "request_timestamp": self.timestamp,
+            "request_ttl": self.ttl,
+        }
+
+        return pika.BasicProperties(
+            content_type='application/json',
+            correlation_id=self.session_id,
+            type=self.message_type,
+            message_id=self.message_id,
+            headers=_headers
+        )
+
+
+    @rmq_properties.setter
+    def rmq_properties(self, value: pika.BasicProperties | None = None) -> None:
+        ''' Convert RMQ properties into Callidus format '''
+        # Convert the RMQ message
+        if not isinstance(value, pika.BasicProperties):
+            return
+
+        self.session_id = value.correlation_id
+        self.message_type = value.type
+    
+        _headers = value.headers
+        if isinstance(_headers, dict):
+            if "sender" in _headers: self.sender = _headers["sender"]
+            if "receiver" in _headers: self.receiver = _headers["receiver"]
+            if "request_timestamp" in _headers:
+                self.timestamp = _headers["request_timestamp"]
+            if "request_ttl" in _headers: self.ttl = _headers["request_ttl"]
 
 
 ###########################################################################
