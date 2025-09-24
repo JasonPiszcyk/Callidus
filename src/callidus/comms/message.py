@@ -33,7 +33,7 @@ from appcore.util.functions import timestamp as create_timestamp
 
 # Imports for python variable type hints
 from typing import Any
-from include.typing import MessagePort
+from callidus.include.typing import MessagePort
 
 
 ###########################################################################

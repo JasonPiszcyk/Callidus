@@ -1,6 +1,11 @@
 # Callidus
 ## Release Notes
 
+__Version 1.0.6__
+Released: 2025-09-24
+* Fix - Import incorrect for typing in message module
+
+
 __Version 1.0.5__
 Released: 2025-09-24
 * New - Add receiver port property
