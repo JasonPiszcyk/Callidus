@@ -1,6 +1,11 @@
 # Callidus
 ## Release Notes
 
+__Version 1.0.5__
+Released: 2025-09-24
+* New - Add receiver port property
+
+
 __Version 1.0.4__
 Released: 2025-09-23
 * New - Callidus message now has RMQ properties
