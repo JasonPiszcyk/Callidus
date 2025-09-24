@@ -59,6 +59,15 @@ class RequestType(enum.Enum):
     VALIDATE_ACTION    = "VALIDATE_ACTION"
 
 #
+# MessagePort
+#
+class MessagePort(enum.Enum):
+    NONE                = 0
+    REMOTE              = 1
+    ZMQ                 = 2
+    ST2                 = 3
+
+#
 # Constants
 #
 

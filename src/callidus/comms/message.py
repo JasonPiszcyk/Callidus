@@ -33,6 +33,7 @@ from appcore.util.functions import timestamp as create_timestamp
 
 # Imports for python variable type hints
 from typing import Any
+from include.typing import MessagePort
 
 
 ###########################################################################
@@ -68,6 +69,7 @@ class CallidusMessage():
         data (Any): The data to be contained in the message
         sender (str); The message sender
         receiver (str); The message receiver
+        receiver_port (MessagePort): The mechanism to use for the receiver
         message_type (str): Message Type (From imported message)
             This is preserved in packet
         timestamp (int): Timestamp of when the message was created
@@ -93,6 +95,7 @@ class CallidusMessage():
             data: Any = None,
             sender: str = "",
             receiver: str = "",
+            receiver_port: MessagePort = MessagePort.NONE,
             session_id: str = "",
             timestamp: int = 0,
             ttl: int = 0,
@@ -104,6 +107,7 @@ class CallidusMessage():
             data (Any): The data to be contained in the message
             sender (str); The message sender
             receiver (str); The message receiver
+            receiver_port (MessagePort): The mechanism to use for the receiver
             session_id (str): Session ID (From imported message)
                 This is preserved in packet
             timestamp (int): Timetamp of when the message was created
@@ -123,6 +127,7 @@ class CallidusMessage():
         self.data = data
         self.sender = sender
         self.receiver = receiver
+        self.receiver_port = receiver_port
         self.session_id = session_id
         self.message_type = ""
         self.timestamp = timestamp or create_timestamp()
@@ -192,6 +197,7 @@ class CallidusMessage():
             "properties": {
                 "sender": self.sender,
                 "receiver": self.receiver,
+                "receiver_port": self.receiver_port.value,
                 "message_type": self.message_type,
                 "session_id": self.session_id,
                 "timestamp": self.timestamp,
@@ -226,6 +232,8 @@ class CallidusMessage():
         
         if "sender" in _props: self.sender = _props['sender']
         if "receiver" in _props: self.receiver = _props['receiver']
+        if "receiver_port" in _props:
+            self.receiver = MessagePort(_props["receiver_port"])
         if "message_type" in _props: self.message_type = _props['message_type']
         if "message_id" in _props: self.__message_id = _props['message_id']
         if "session_id" in _props: self.session_id = _props['session_id']
@@ -242,6 +250,7 @@ class CallidusMessage():
         _headers = {
             "sender": self.sender,
             "receiver": self.receiver,
+            "receiver_port": self.receiver_port.value,
             "request_timestamp": self.timestamp,
             "request_ttl": self.ttl,
         }
@@ -269,6 +278,8 @@ class CallidusMessage():
         if isinstance(_headers, dict):
             if "sender" in _headers: self.sender = _headers["sender"]
             if "receiver" in _headers: self.receiver = _headers["receiver"]
+            if "receiver_port" in _headers:
+                self.receiver = MessagePort(_headers["receiver_port"])
             if "request_timestamp" in _headers:
                 self.timestamp = _headers["request_timestamp"]
             if "request_ttl" in _headers: self.ttl = _headers["request_ttl"]
