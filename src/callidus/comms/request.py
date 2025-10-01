@@ -144,7 +144,13 @@ class Request():
         except:
             pass
 
-        self.type = _msg_dict.get('type', RequestType.NONE)
+        try:
+            self.type = RequestType(
+                _msg_dict.get('type', RequestType.NONE.value)
+            )
+        except:
+            RequestType.NONE
+
         self.action = _msg_dict.get('action', None)
         self.data = _msg_dict.get('data', None)
 
