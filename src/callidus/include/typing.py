@@ -55,8 +55,8 @@ class Status(enum.Enum):
 # Requests
 class RequestType(enum.Enum):
     NONE               = "NONE"
-    ST2_ACTION         = "ST2_ACTION"
-    VALIDATE_ACTION    = "VALIDATE_ACTION"
+    ST2_ACTION         = "REQUEST_ST2_ACTION"
+    VALIDATE           = "REQUEST_VALIDATE"
 
 #
 # MessagePort

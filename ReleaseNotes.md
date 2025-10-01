@@ -1,6 +1,12 @@
 # Callidus
 ## Release Notes
 
+
+__Version 1.0.7__
+Released: 2025-10-01
+* Fix - Ensure request types are consistent
+
+
 __Version 1.0.6__
 Released: 2025-09-24
 * Fix - Import incorrect for typing in message module
