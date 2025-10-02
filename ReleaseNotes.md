@@ -2,6 +2,11 @@
 ## Release Notes
 
 
+__Version 1.0.9__
+Released: 2025-10-02
+* Fix - Even More work to ensure request types are consistent
+
+
 __Version 1.0.8__
 Released: 2025-10-01
 * Fix - More work to ensure request types are consistent
