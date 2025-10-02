@@ -115,7 +115,7 @@ class Request():
         ''' The response packaged as a packet to be sent '''
         # message_id is intentionally omitted so a new ID can be created
         _msg_dict = {
-            "type": self.type,
+            "type": self.type.value,
             "action": self.action,
             "data": self.data
         }
@@ -149,7 +149,7 @@ class Request():
                 _msg_dict.get('type', RequestType.NONE.value)
             )
         except:
-            RequestType.NONE
+            self.type = RequestType.NONE
 
         self.action = _msg_dict.get('action', None)
         self.data = _msg_dict.get('data', None)
