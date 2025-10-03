@@ -25,7 +25,7 @@ from __future__ import annotations
 
 # System Modules
 from appcore.conversion import ENCODE_METHOD
-from appcore.conversion import to_json, from_json
+from appcore.conversion import to_json, from_json, to_base64, from_base64
 
 # Local app modules
 from callidus.include.typing import Status
@@ -137,12 +137,17 @@ class Response():
         }
 
         # If it can't be converted just return an empty string
+        _value_bytes = b""
         try:
             _value_json = to_json(data=_msg_dict, skip_invalid=True)
-        except:
-            _value_json = ""
+            _value_bytes = to_base64(
+                data=_value_json.encode(ENCODE_METHOD)
+            ).encode(ENCODE_METHOD)
 
-        return _value_json.encode(ENCODE_METHOD)
+        except:
+            pass
+
+        return _value_bytes
 
 
     @packet.setter
@@ -154,9 +159,17 @@ class Response():
 
         _msg_dict = {}
         try:
-            _value_json = value.decode(ENCODE_METHOD)
+            _value_base64 = value.decode(ENCODE_METHOD)
+            if _value_base64:
+                _value_json = from_base64(
+                    data=_value_base64
+                ).decode(ENCODE_METHOD)
+            else:
+                _value_json = ""
+
             if _value_json:
                 _msg_dict = from_json(data=_value_json)
+
         except:
             pass
 
