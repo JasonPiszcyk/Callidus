@@ -94,6 +94,7 @@ class CallidusMessage():
             self,
             data: Any = None,
             sender: str = "",
+            sender_port: MessagePort = MessagePort.NONE,
             receiver: str = "",
             receiver_port: MessagePort = MessagePort.NONE,
             session_id: str = "",
@@ -196,6 +197,7 @@ class CallidusMessage():
             "data": self.data,
             "properties": {
                 "sender": self.sender,
+                "sender_port": self.sender_port.value,
                 "receiver": self.receiver,
                 "receiver_port": self.receiver_port.value,
                 "message_type": self.message_type,
@@ -231,9 +233,11 @@ class CallidusMessage():
             _props = {}
         
         if "sender" in _props: self.sender = _props['sender']
+        if "sender_port" in _props:
+            self.sender_port = MessagePort(_props["sender_port"])
         if "receiver" in _props: self.receiver = _props['receiver']
         if "receiver_port" in _props:
-            self.receiver = MessagePort(_props["receiver_port"])
+            self.receiver_port = MessagePort(_props["receiver_port"])
         if "message_type" in _props: self.message_type = _props['message_type']
         if "message_id" in _props: self.__message_id = _props['message_id']
         if "session_id" in _props: self.session_id = _props['session_id']
@@ -249,6 +253,7 @@ class CallidusMessage():
         ''' The properties in RMQ format '''
         _headers = {
             "sender": self.sender,
+            "sender_port": self.sender_port.value,
             "receiver": self.receiver,
             "receiver_port": self.receiver_port.value,
             "request_timestamp": self.timestamp,
@@ -277,9 +282,11 @@ class CallidusMessage():
         _headers = value.headers
         if isinstance(_headers, dict):
             if "sender" in _headers: self.sender = _headers["sender"]
+            if "sender_port" in _headers:
+                self.sender_port = MessagePort(_headers["sender_port"])
             if "receiver" in _headers: self.receiver = _headers["receiver"]
             if "receiver_port" in _headers:
-                self.receiver = MessagePort(_headers["receiver_port"])
+                self.receiver_port = MessagePort(_headers["receiver_port"])
             if "request_timestamp" in _headers:
                 self.timestamp = _headers["request_timestamp"]
             if "request_ttl" in _headers: self.ttl = _headers["request_ttl"]
