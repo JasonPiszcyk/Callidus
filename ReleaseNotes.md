@@ -1,6 +1,11 @@
 # Callidus
 ## Release Notes
 
+__Version 1.0.11__
+Released: 2025-10-03
+* Fix - Sender/Receiver info not being set correctly
+
+
 __Version 1.0.10__
 Released: 2025-10-03
 * Fix - Convert Request/reponse packets to base64 to enable encapsulation in Callidus Message.
