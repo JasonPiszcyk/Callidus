@@ -107,6 +107,7 @@ class CallidusMessage():
         Args:
             data (Any): The data to be contained in the message
             sender (str); The message sender
+            sender_port (MessagePort): The mechanism used by the sender
             receiver (str); The message receiver
             receiver_port (MessagePort): The mechanism to use for the receiver
             session_id (str): Session ID (From imported message)
@@ -127,6 +128,7 @@ class CallidusMessage():
         # Attributes
         self.data = data
         self.sender = sender
+        self.sender_port = sender_port
         self.receiver = receiver
         self.receiver_port = receiver_port
         self.session_id = session_id
